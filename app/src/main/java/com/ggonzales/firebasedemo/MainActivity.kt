@@ -1,5 +1,6 @@
 package com.ggonzales.firebasedemo
 
+import android.content.Intent
 import com.google.firebase.analytics.FirebaseAnalytics
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -24,6 +25,15 @@ class MainActivity : AppCompatActivity() {
         mAuth = FirebaseAuth.getInstance()
     }
 
+    override fun onStart() {
+        super.onStart()
+        val currentUser = mAuth!!.currentUser
+        if(currentUser!= null){
+            val intent = Intent(applicationContext, ControlActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
     fun loginFunction(view: View) {
         val email = emailEditTxt.text.toString()
         val passw = passwordEditTxt.text.toString()
@@ -43,4 +53,5 @@ class MainActivity : AppCompatActivity() {
                 }
             }
     }
+
 }
